@@ -35,6 +35,9 @@ Route::get('/', function () {
 Route::get('/list', [StatusController::class, 'ProjectList'])->name('ProjectList');
 Route::get('/create', [StatusController::class, 'CreateProject'])->name('CreateProject');
 Route::post('/newproject', [StatusController::class, 'NewProject'])->name('new.project');
+Route::get('/addnewresource/{project_key}', [StatusController::class, 'AddResourceView']);
+Route::post('/addresource', [StatusController::class, 'AddResource'])->name('add.resource');
+Route::get('/viewresource/{project_key}', [StatusController::class, 'ViewResource']);
 
 Auth::routes();
 

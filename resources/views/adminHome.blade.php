@@ -8,7 +8,7 @@
     @section('content')
         <style>
             .button {
-                background-color: #A5D8DD;
+                background-color: #138496;
                 border: none;
                 color: white;
                 padding: 50px;
@@ -21,7 +21,7 @@
             }
 
             .button1 {
-                background-color: #DADADA;
+                background-color: #D2B48C;
                 border: none;
                 color: white;
                 height: 200px;

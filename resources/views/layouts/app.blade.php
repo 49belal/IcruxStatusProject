@@ -69,15 +69,18 @@ font-weight: 300;
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand">
-                    <img src="{{url('/images/icruxlogo.png')}}"height="50" width="160" style="margin-bottom:3%"></img>
-                </a>
+
+                        <button class="btn btn-primary" style="margin-top:0.5px; margin-left:1px" onclick="history.go(-1);">Back </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
                 <a class="navbar-brand" >
                     {{-- {{ 'Icrux System' }} --}}
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -131,6 +134,9 @@ font-weight: 300;
                         @endguest
                     </ul>
                 </div>
+                <a class="navbar-brand">
+                    <img src="{{url('/images/icruxlogo.png')}}"height="50" width="160" style="margin-bottom:3%; margin-right:1px"></img>
+                </a>
             </div>
         </nav>
 

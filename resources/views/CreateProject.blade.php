@@ -32,14 +32,6 @@
                             </div>
 
                             <div class="row mb-3">
-                                <label for="resource_name" class="col-md-4 col-form-label text-md-end">{{ __('Resource Name') }}</label>
-
-                                <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Resource Name" name="resource_name">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
                                 <label class="col-md-4 col-form-label text-md-end">{{ __('Priority') }}</label>
                                 <div class="col-md-6">
                                     <Select class="form-control" name="priority" id="priority">
