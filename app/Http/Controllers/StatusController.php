@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 use DB;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+// require 'PHPMailer-master/src/Exception.php';
+// require 'PHPMailer-master/src/PHPMailer.php';
+// require 'PHPMailer-master/src/SMTP.php';
 
 use Illuminate\Http\Request;
 
@@ -54,8 +59,34 @@ class StatusController extends Controller
         $data=array('project_key'=>$project_key,"resource_name"=>$resource_name,"resource_email"=>$resource_email,"rating"=>$rating,'start_resource_date'=>$start_resource_date,'end_resource_date'=>$end_resource_date,'remarks'=>$remarks);
         DB::table('resource_details')->insert($data);
 
+        $mail = new PHPMailer();
+        // $nameA= strtok($namef, " ");
+        $msg = "<p>Hi ".$resource_name.",</p>
+        <p>Here is your new Task</p>";
+
+        $mail->IsSMTP();
+        // $mail->SMTPDebug=1;
+        $mail->Mailer = "smtp";
+        $mail->SMTPAuth = true;
+        $mail->SMTPSecure = "tls";
+        $mail->Port = 587;
+        $mail->Host = "smtp.office365.com";
+        $mail->Username = "belalahmad664664@outlook.com";
+        $mail->Password = "Bahmad8097";
+        $mail->IsHTML(true);
+        $mail->From = "belalahmad664664@outlook.com";
+        $mail->FromName = "Belal Ahmad";
+        $mail->Sender = "belalahmad664664@outlook.com";
+        $mail->Subject = "Task details";
+        $mail->MsgHTML($msg);
+        $mail->addAddress($resource_email);
+        //  dd($mail);
+        if ($mail->send()) {
+
+
         $ProjectList = DB::select('select * from project_details');
         return view('ProjectList',['ProjectList'=>$ProjectList]);
+        }
     }
 
     public function ViewResource(string $project_key)
