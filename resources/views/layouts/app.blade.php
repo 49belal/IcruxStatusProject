@@ -111,7 +111,7 @@ font-weight: 300;
                                 </a>
 
                                 <div class="dropdown-content" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('azure.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
@@ -124,7 +124,7 @@ font-weight: 300;
                                     if(Auth::user()->type=="manager"){
                                      ?>
                                      <li class="nav-item">
-                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                     <a class="nav-link" href="{{ route('register.user') }}">{{ __('Register') }}</a>
                                  </li>
                                  <?php
                                     }

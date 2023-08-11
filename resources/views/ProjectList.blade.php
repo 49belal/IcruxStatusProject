@@ -13,7 +13,6 @@
 <body>
 <div class="container">
   <h2 class="text-center">List of Projects</h2>
-
   <table class="table table-bordered table-striped">
     <thead style="background-color:#138496;color:white">
       <tr>

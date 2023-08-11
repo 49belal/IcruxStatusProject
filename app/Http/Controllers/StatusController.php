@@ -59,11 +59,23 @@ class StatusController extends Controller
         $data=array('project_key'=>$project_key,"resource_name"=>$resource_name,"resource_email"=>$resource_email,"rating"=>$rating,'start_resource_date'=>$start_resource_date,'end_resource_date'=>$end_resource_date,'remarks'=>$remarks);
         DB::table('resource_details')->insert($data);
 
+        $ProjectList = DB::select("select * from project_details where project_key=$project_key");
+        //  dd($ProjectList);
+        $project_key = $ProjectList[0]->project_key;
+        $client_name = $ProjectList[0]->client_name;
+        $project_lead = $ProjectList[0]->project_lead;
+        $priority = $ProjectList[0]->priority;
+        $description = $ProjectList[0]->description;
+
         $mail = new PHPMailer();
         // $nameA= strtok($namef, " ");
         $msg = "<p>Hi ".$resource_name.",</p>
-        <p>Here is your new Task</p>";
-
+        <p>Here is your new Task Details:</p>
+        <p>Client Name  : ".$client_name."</p>
+        <p>Project Lead : ".$project_lead."</p>
+        <p>Priority  : ".$priority."</p>
+        <p>Description  : ".$description."</p>";
+        // dd($msg);
         $mail->IsSMTP();
         // $mail->SMTPDebug=1;
         $mail->Mailer = "smtp";
@@ -95,5 +107,8 @@ class StatusController extends Controller
         $ResourceList = DB::select("select * from resource_details where project_key=$project_key");
         return view('ResourceList',['ResourceList'=>$ResourceList]);
     }
+
+
+
 
 }
