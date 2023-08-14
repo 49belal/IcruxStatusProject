@@ -58,7 +58,7 @@
 
                     <div class="card">
 
-                        <div class="card-header" style="text-align: center;">{{ __('Super Admin Dashboard') }}</div>
+                        <div class="card-header" style="text-align: center;">{{ __('Team Lead Dashboard') }}</div>
 
 
 
@@ -69,8 +69,6 @@
                                     class="button button5">{{ __('List of the Projects') }}</button></a>
                             <a href="{{ route('CreateProject') }}"><button
                                     class="button1 button5">{{ __('Create New Project') }}</button></a>
-                            <a href="{{ route('UserList') }}"><button
-                                 type="button" class="btn btn-info btn-lg btn-block">{{ __('List of Users') }}</button></a>
 
                         </div>
 

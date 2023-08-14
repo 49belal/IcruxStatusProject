@@ -35,20 +35,30 @@ class AppAzure extends Azure
         if(!empty($User)){
             $type = DB::select("select type from users where email='$email'");
             $role= $type[0]->type;
-            // dd("$role");
+
+            //User Role
         if($role==0){
             Auth::login($user, true);
             $ProjectKey = DB::select("select project_key from resource_details where resource_email='$email'");
-            $projectkey = $ProjectKey[0]->project_key;
-            $userdetails = DB::select("select * from project_details where project_key='$projectkey'");
-            return view('home',['userdetails'=>$userdetails]);
+             // $projectkey = $ProjectKey[0]->project_key;
+            // dd($ProjectKey);
+            // $userdetails = DB::select("select * from project_details where project_key='$projectkey'");
+            return view('home',['userdetails'=>$ProjectKey]);
+
             // return redirect()->route('resourcedetails');
+
+            //Admin Role
         }elseif($role==1){
             Auth::login($user, true);
             return view ("adminHome");
+
+            //Super-Admin Role
         }elseif($role==2){
             Auth::login($user, true);
             return view ("managerHome");
+        }elseif($role==3){
+            Auth::login($user, true);
+            return view ("TeamLeadHome");
         }
         }else{
             dd("User is not Exist");

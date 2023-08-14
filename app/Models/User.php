@@ -108,7 +108,7 @@ class User extends Authenticatable
 
         return new Attribute(
 
-            get: fn ($value) =>  ["user", "admin", "manager"][$value],
+            get: fn ($value) =>  ["user", "admin", "manager", "teamlead"][$value],
 
         );
 

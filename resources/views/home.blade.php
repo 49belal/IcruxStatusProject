@@ -19,22 +19,7 @@
             <th>Project Key:</th>
             <td>{{ $userdetails->project_key }}</td>
         </tr>
-        <tr>
-            <th>Client Name:</th>
-            <td>{{ $userdetails->client_name }}</td>
-        </tr>
-        <tr>
-            <th>Project Lead:</th>
-            <td>{{ $userdetails->project_lead }}</td>
-        </tr>
-        <tr>
-            <th>Priority:</th>
-            <td>{{ $userdetails->priority }}</td>
-        </tr>
-        <tr>
-            <th>Description:</th>
-            <td>{{ $userdetails->description }}</td>
-        </tr>
+
 
     @endforeach
   </table>

@@ -48,7 +48,13 @@ Route::get('/resourcedetails', [ResourceController::class, 'resourcedetails'])->
 
 
 //Super Admin Routes
-Route::get('/registeruser', [SuperAdminController::class, 'registeruser'])->name('register.user');
+Route::get('/registeruser', [SuperAdminController::class, 'RegisterUser'])->name('register.user');
+Route::post('/addnewuser', [SuperAdminController::class, 'AddNewUser'])->name('add.newuser');
+Route::get('/UserList', [SuperAdminController::class, 'UserList'])->name('UserList');
+
+Route::get('/edituser/{email}', [SuperAdminController::class, 'EditUser']);
+Route::get('/deleteuser/{email}', [SuperAdminController::class, 'DeleteUser']);
+
 
 
 
