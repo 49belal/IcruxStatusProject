@@ -4,7 +4,7 @@
 <head>
     @extends('layouts.app2')
     @section('head')
-        <title>Add Resource</title>
+        <title>Edit Task</title>
         <!-- ======= Styles ====== -->
         {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     @endsection
@@ -28,17 +28,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header" style="background-color:#7d7c70;color:white;">{{ __('Add New Resource:') }}</div>
+                    <div class="card-header" style="background-color:#7d7c70;color:white;">{{ __('Edit Task:') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('add.resource') }}">
+                        <form method="POST" action="{{ route('update.resource') }}">
                             @csrf
 
                             <div class="row mb-3">
                                 <label for="project_key" class="col-md-4 col-form-label text-md-end">{{ __('Project Key') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" value="<?php echo $project_key ?>" name="project_key" required>
+                                    <input type="text" class="form-control" value="<?php echo $project_key ?>" name="project_key" required >
                                 </div>
                             </div>
 
@@ -46,7 +46,7 @@
                                 <label for="resource_name" class="col-md-4 col-form-label text-md-end">{{ __('Resource Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Resource Name" name="resource_name" required>
+                                    <input type="text" class="form-control" value="<?php echo $resource_name ?>"  name="resource_name" required>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                                 <label for="resource_email" class="col-md-4 col-form-label text-md-end">{{ __('Resource Email') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="Resource Email" name="resource_email" required>
+                                    <input type="email" class="form-control" value="<?php echo $resource_email ?>"  name="resource_email" required>
                                 </div>
                             </div>
 
@@ -62,7 +62,7 @@
                                 <label for="task_description" class="col-md-4 col-form-label text-md-end">{{ __('Task Description') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="Task Description" name="task_description" required>
+                                    <input type="text" class="form-control" value="<?php echo $task_description ?>"  name="task_description" required>
                                 </div>
                             </div>
 
@@ -70,7 +70,7 @@
                                 <label for="start_resource_date" class="col-md-4 col-form-label text-md-end">{{ __('Start Resource Date') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" placeholder="DD/MM/YYYY" name="start_resource_date" required min="{{ Date('Y-m-d', strtotime('-15 days')) }}" required>
+                                    <input type="date" class="form-control" required min="{{ Date('Y-m-d', strtotime('-15 days')) }}" value="<?php echo $start_resource_date ?>" name="start_resource_date" required>
                                 </div>
                             </div>
 
@@ -78,20 +78,21 @@
                                 <label for="end_resource_date" class="col-md-4 col-form-label text-md-end">{{ __('End Resource Date') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="date" class="form-control" placeholder="DD/MM/YYYY" name="end_resource_date" required min="{{ Date('Y-m-d')}}" required>
+                                    <input type="date" class="form-control" value="<?php echo $end_resource_date ?>" name="end_resource_date" required min="{{ Date('Y-m-d')}}" required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label text-md-end">{{ __('Status') }}</label>
                                 <div class="col-md-6">
-                                    <Select class="form-control" name="status" placeholder="Status" id="status">
+                                    <Select class="form-control" name="status" value="<?php echo $status ?>" id="status">
                                         <option>InProgress</option>
                                         <option>Completed</option>
                                         <option>OnHold</option>
                                     </Select>
                                 </div>
                             </div>
+
 
                             <div class="row mb-3">
                                 <label for="remarks" class="col-md-4 col-form-label text-md-end">{{ __('Remarks') }}</label>

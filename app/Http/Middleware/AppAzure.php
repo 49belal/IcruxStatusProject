@@ -22,8 +22,8 @@ class AppAzure extends Azure
         $graph->setAccessToken($access_token);
 
         $graph_user = $graph->createRequest("GET", "/me")
-                      ->setReturnType(Model\User::class)
-                      ->execute();
+            ->setReturnType(Model\User::class)
+            ->execute();
 
         $email = strtolower($graph_user->getUserPrincipalName());
 
@@ -32,35 +32,44 @@ class AppAzure extends Azure
 
         ]);
         $User = DB::select("select id from users where email='$email'");
-        if(!empty($User)){
+        if (!empty($User)) {
             $type = DB::select("select type from users where email='$email'");
-            $role= $type[0]->type;
+            $role = $type[0]->type;
 
             //User Role
-        if($role==0){
-            Auth::login($user, true);
-            $ProjectKey = DB::select("select project_key from resource_details where resource_email='$email'");
-             // $projectkey = $ProjectKey[0]->project_key;
-            // dd($ProjectKey);
-            // $userdetails = DB::select("select * from project_details where project_key='$projectkey'");
-            return view('home',['userdetails'=>$ProjectKey]);
+            if ($role == 0) {
+                Auth::login($user, true);
+                // $resourcedetails = DB::select("select * from resource_details where resource_email='$email'");
+                $resourcedetails = DB::select("select rd.*,pd.* from resource_details rd
+                inner join project_details pd on rd.project_key=pd.project_key
+                where resource_email='$email'");
+                // $projectkey = $ProjectKey[0]->project_key;
+                //  dd($resourcedetails);
+                //  $userdetails = DB::select("select * from project_details where project_key='$resourcedetails'");
+                // return view('home',['resourcedetails'=>$resourcedetails]);
+                return view("home", ['resourcedetails' => $resourcedetails]);
 
-            // return redirect()->route('resourcedetails');
+                // return redirect()->route('resourcedetails');
 
-            //Admin Role
-        }elseif($role==1){
-            Auth::login($user, true);
-            return view ("adminHome");
+                //Admin Role
+            } elseif ($role == 1) {
+                Auth::login($user, true);
+                $ProjectList = DB::select('select * from project_details');
+                return view("superadmindashboard", ['ProjectList' => $ProjectList]);
+                // return view ("adminHome");
 
-            //Super-Admin Role
-        }elseif($role==2){
-            Auth::login($user, true);
-            return view ("managerHome");
-        }elseif($role==3){
-            Auth::login($user, true);
-            return view ("TeamLeadHome");
-        }
-        }else{
+                //Super-Admin Role
+            } elseif ($role == 2) {
+                Auth::login($user, true);
+                $ProjectList = DB::select('select * from project_details');
+                return view("superadmindashboard", ['ProjectList' => $ProjectList]);
+            } elseif ($role == 3) {
+                Auth::login($user, true);
+                $ProjectList = DB::select('select * from project_details');
+                return view("superadmindashboard", ['ProjectList' => $ProjectList]);
+                // return view ("TeamLeadHome");
+            }
+        } else {
             dd("User is not Exist");
         }
     }

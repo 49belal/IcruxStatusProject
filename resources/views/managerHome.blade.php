@@ -49,7 +49,10 @@
 </head>
 
 <body>
-
+    <div>
+        <button class="status inProgresss" style="margin-left:25px;margin-top:25px;" onclick="history.go(-1);">Back
+        </button>
+    </div>
         <div class="container">
 
             <div class="row justify-content-center">

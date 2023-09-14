@@ -1,9 +1,9 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>
- </title>
+  <title>Dashboard</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
 </head>
 <style>
 html {
@@ -14,11 +14,12 @@ body {
     height: 100%;
 
 }
-.global-container {
+.container {
     height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: absolute;
+   margin-left: 1px;
+   margin-right: 1px;
+   padding-left: 1px;
     background-color: #f5f5f5;
 }
 form {
@@ -70,7 +71,7 @@ font-weight: 300;
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
 
-                        <button class="btn btn-primary" style="margin-top:0.5px; margin-left:1px" onclick="history.go(-1);">Back </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="status inProgresss" style="margin-top:0.5px; margin-left:1px;background-color:#1795ce;" onclick="history.go(-1);">Back </button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 
                 <a class="navbar-brand" >
@@ -114,28 +115,20 @@ font-weight: 300;
                                     <a class="dropdown-item" href="{{ route('azure.logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        {{ __('Sign Out') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
-                                    <?php
-                                    if(Auth::user()->type=="manager"){
-                                     ?>
-                                     <li class="nav-item">
-                                     <a class="nav-link" href="{{ route('register.user') }}">{{ __('Register') }}</a>
-                                 </li>
-                                 <?php
-                                    }
-                                    ?>
+
                                 </div>
                             </li>
                         @endguest
                     </ul>
                 </div>
-                <a class="navbar-brand">
-                    <img src="{{url('/images/icruxlogo.png')}}"height="50" width="160" style="margin-bottom:3%; margin-right:1px"></img>
+                <a class="navbar-brand"  href="/" >
+                    <img src="{{url('/images/icruxlogo.png')}}" height="50" width="160" style="margin-bottom:3%; margin-right:1px"></img>
                 </a>
             </div>
         </nav>

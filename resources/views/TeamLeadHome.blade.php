@@ -46,9 +46,9 @@
                 opacity: 0.6
             }
         </style>
-</head>
+    </head>
 
-<body>
+    <body>
 
         <div class="container">
 

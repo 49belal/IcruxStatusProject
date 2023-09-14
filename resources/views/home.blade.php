@@ -1,29 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    @extends('layouts.app')
-    @section('content')
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    @extends('layouts.app2')
+    @section('head')
+        <title>Dashboard</title>
+        <!-- ======= Styles ====== -->
+        {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
+    @endsection
 </head>
-<body>
-<div class="container">
-  <h2 class="text-center">Task Details</h2>
-  <table class="table table-bordered table-striped" style="width:75%">
-    @foreach ($userdetails as $userdetails)
-        <tr>
-            <th>Project Key:</th>
-            <td>{{ $userdetails->project_key }}</td>
-        </tr>
+@section('menu')
+
+    <body>
+        <div>
+            <button class="status inProgresss" style="margin-left:25px;margin-top:25px;" onclick="history.go(-1);">Back
+            </button>
+        </div>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+
+            <div class="card" style="text-align: center;">
+                <div>
+                    <?php
+                    $a = 0;
+                    $b = 0;
+                    $c = 0;
+                    foreach ($resourcedetails as $resourcedetails_a) {
+                        if ($resourcedetails_a->status == 'Completed') {
+                            $a++;
+                        } elseif ($resourcedetails_a->status == 'InProgress') {
+                            $b++;
+                        } else {
+                            $c++;
+                        }
+                    }
+                    $d = $a + $b + $c;
+                    ?>
+                    <div class="numbers" style="centre">{{ $a }}</div>
+
+                    <div class="cardName">Completed Task</div>
+                </div>
 
 
-    @endforeach
-  </table>
-  @endsection
-</div>
-</body>
-</html>
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div>
+                    <div class="numbers">{{ $b }}</div>
+                    <div class="cardName">In Progress Task</div>
+                </div>
+
+
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div>
+                    <div class="numbers">{{ $c }}</div>
+                    <div class="cardName">OnHold Task</div>
+                </div>
+
+
+            </div>
+
+            <div class="card" style="text-align: center;">
+                <div>
+                    <div class="numbers">{{ $d }}</div>
+                    <div class="cardName">All Tasks</div>
+                </div>
+            </div>
+        </div>
+        <div class="details">
+            <div class="recentOrders">
+                <div class="cardHeader">
+                    <h2>Task List</h2>
+                    <a href="{{ route('tasklist') }}" class="btn" style="margin-right: 16px;">View All</a>
+                </div>
+
+                <table id="tableID">
+                    <thead>
+                        <tr>
+                            <th>Serial No.</th>
+                            <th>Client Name</th>
+                            <th>Project Lead</th>
+                            <th>Task Description</th>
+                            <th>Task Start Date</th>
+                            <th>Task End Date</th>
+                            <th>Status</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $i = 1; ?>
+                        @foreach ($resourcedetails as $resourcedetails)
+                            <tr>
+                                <td>{{ $i }}</td>
+                                <td>{{ $resourcedetails->client_name }}</td>
+                                <td>{{ $resourcedetails->project_lead }}</td>
+                                <td>{{ $resourcedetails->task_description }}</td>
+                                <td><?php $start_todate = explode('-', $resourcedetails->start_resource_date);
+                                $start__date = $start_todate[2] . '-' . $start_todate[1] . '-' . $start_todate[0]; ?>{{ $start__date }}</td>
+                                <td><?php $end_todate = explode('-', $resourcedetails->end_resource_date);
+                                $end__date = $end_todate[2] . '-' . $end_todate[1] . '-' . $end_todate[0]; ?>{{ $end__date }}</td>
+                                {{-- <td><span class="status pending">{{ $ProjectList->priority }}</span></td> --}}
+                                <?php
+                                if ($resourcedetails->status == 'Completed') {
+                                    $class = 'status delivered1';
+                                } elseif ($resourcedetails->status == 'InProgress') {
+                                    $class = 'status inProgress1';
+                                } else {
+                                    $class = 'status pending1';
+                                }
+                                ?>
+                                <td><span class="{{ $class }}"
+                                        style="margin-right:50px;">{{ $resourcedetails->status }}</span></td>
+
+                            </tr>
+                            <?php $i++; ?>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+
+
+        </div>
+    </body>
+
+    </html>
+    <script>
+        /* Initialization of datatable */
+        $(document).ready(function() {
+            $('#tableID').details({});
+        });
+    </script>
+@endsection

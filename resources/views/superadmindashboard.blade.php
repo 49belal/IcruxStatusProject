@@ -2,19 +2,15 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @extends('layouts.app2')
     @section('head')
-        <title>Project List</title>
+        <title>Dashboard</title>
         <!-- ======= Styles ====== -->
         {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     @endsection
-    <meta charset="utf-8">
-    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> --}}
-    {{-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> --}}
 </head>
 @section('menu')
     <style>
@@ -30,7 +26,7 @@
         }
 
         .dropdown {
-            position:initial;
+            position: initial;
             /* display: inline-block; */
             display: block;
             margin: auto;
@@ -71,12 +67,68 @@
     </style>
 
     <body>
-        <div>
-            <button class="status inProgresss" style="margin-left:25px;margin-top:25px;" onclick="history.go(-1);">Back
-            </button>
+
+        <!-- ======================= Cards ================== -->
+        <div class="cardBox">
+
+            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'Completed') }}'"
+                style="text-align: center;cursor:pointer;">
+                <div>
+                    <?php
+                    $a = 0;
+                    $b = 0;
+                    $c = 0;
+                    foreach ($ProjectList as $ProjectList_a) {
+                        if ($ProjectList_a->project_status == 'InProgress') {
+                            $a++;
+                        } elseif ($ProjectList_a->project_status == 'OnHold') {
+                            $b++;
+                        } else {
+                            $c++;
+                        }
+                    }
+                    $d = $a + $b + $c;
+                    ?>
+                    <div class="numbers" style="centre">{{ $a }}</div>
+
+                    <div class="cardName">InProgress Projects</div>
+                </div>
+
+
+            </div>
+
+            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'OnHold') }}'"
+                style="text-align: center;cursor:pointer;">
+                <div>
+                    <div class="numbers" style="centre">{{ $b }}</div>
+                    <div class="cardName">OnHold Projects</div>
+                </div>
+
+
+            </div>
+
+            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'InProgress') }}'"
+                style="text-align: center;cursor:pointer;">
+                <div>
+                    <div class="numbers" style="centre">{{ $c }}</div>
+                    <div class="cardName">Completed Projects</div>
+                </div>
+
+
+            </div>
+
+            <div class="card" onclick="location.href='{{ route('ProjectList') }}'"
+                style="text-align: center;cursor:pointer;">
+                <div>
+                    <div class="numbers" style="centre">{{ $d }}</div>
+                    <div class="cardName">All Projects</div>
+                </div>
+
+
+            </div>
         </div>
 
-
+        <!-- ================ Order Details List ================= -->
         <div class="details">
             <div class="recentOrders">
 
@@ -140,15 +192,15 @@
 
 
 
-                                    <td class="dropdown" style="position:initial">
-                                        <button class="status inProgress">
-                                            Action <i class="fa fa-caret-down"></i>
-                                        </button>
-                                        <div class="dropdown-content">
-                                            <a href="{{ route('viewresource', ($ProjectList->project_key)) }}">View</a>
-                                            <a href="{{ route('addnewresource', ($ProjectList->project_key)) }}">Add</a>
-                                            <a href="{{ route('editproject', ($ProjectList->project_key)) }}">Update</a>
-                                        </div>
+                                <td class="dropdown" style="position:initial">
+                                    <button class="status inProgress">
+                                        Action <i class="fa fa-caret-down"></i>
+                                    </button>
+                                    <div class="dropdown-content">
+                                        <a href="{{ route('viewresource', $ProjectList->project_key) }}">View</a>
+                                        <a href="{{ route('addnewresource', $ProjectList->project_key) }}">Add</a>
+                                        <a href="{{ route('editproject', $ProjectList->project_key) }}">Update</a>
+                                    </div>
 
                                 </td>
 
@@ -159,8 +211,28 @@
                 </table>
             </div>
         </div>
-    @endsection
 
-</body>
 
-</html>
+
+
+
+        </div>
+
+
+        {{-- <!-- =========== Scripts =========  -->
+        <script src="js/main.js"></script>
+        <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
+        <!-- ====== ionicons ======= -->
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script> --}}
+    </body>
+
+    </html>
+    <script>
+        /* Initialization of datatable */
+        $(document).ready(function() {
+            $('#tableID').details({});
+        });
+    </script>
+@endsection

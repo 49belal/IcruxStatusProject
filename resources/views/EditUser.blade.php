@@ -4,7 +4,7 @@
 <head>
     @extends('layouts.app2')
     @section('head')
-        <title>Add User</title>
+        <title>Edit User</title>
         <!-- ======= Styles ====== -->
         {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     @endsection
@@ -28,10 +28,10 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header" style="background-color:#7d7c70;color:white;">{{ __('Add New User:') }}</div>
+                    <div class="card-header" style="background-color:#7d7c70;color:white;">{{ __('Edit User:') }}</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('add.newuser') }}">
+                        <form method="POST" action="{{ route('edit.user') }}">
                             @csrf
 
 
@@ -39,7 +39,7 @@
                                 <label for="user_name" class="col-md-4 col-form-label text-md-end">{{ __('User Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" placeholder="User Name" name="user_name" required>
+                                    <input type="text" class="form-control" value="<?php echo $name ?>" name="user_name" required>
                                 </div>
                             </div>
 
@@ -47,18 +47,37 @@
                                 <label for="user_email" class="col-md-4 col-form-label text-md-end">{{ __('User Email') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="email" class="form-control" placeholder="User Email" name="user_email" required>
+                                    <input type="email" class="form-control" value="<?php echo $email ?>" name="user_email" required>
                                 </div>
                             </div>
 
                             <div class="row mb-3">
                                 <label class="col-md-4 col-form-label text-md-end">{{ __('Role') }}</label>
                                 <div class="col-md-6">
-                                    <Select class="form-control" name="role" placeholder="role" id="role" required>
+                                    <Select class="form-control" name="role" id="role">
+                                        <?php
+                                            if($type==0){ ?>
+                                                <option selected>User</option>
+                                                <option>Admin</option>
+                                                <option>Team Lead</option>
+                                                <option>Super Admin</option>
+                                        <?php }elseif($type==1){ ?>
+                                            <option>User</option>
+                                            <option selected>Admin</option>
+                                            <option>Team Lead</option>
+                                            <option>Super Admin</option>
+                                        <?php }elseif($type==2){ ?>
+                                            <option>User</option>
+                                            <option>Admin</option>
+                                            <option>Team Lead</option>
+                                            <option selected>Super Admin</option>
+                                        <?php }elseif($type==3){ ?>
                                         <option>User</option>
                                         <option>Admin</option>
-                                        <option>Team Lead</option>
+                                        <option selected>Team Lead</option>
                                         <option>Super Admin</option>
+                                        <?php } ?>
+
                                     </Select>
                                 </div>
                             </div>

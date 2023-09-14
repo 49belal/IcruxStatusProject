@@ -30,7 +30,7 @@ use App\Http\Controllers\SuperAdminController;
 
 Route::get('/a', function () {
 
-    return view('welcome');
+    return view('dashboard');
 
 });
 
@@ -39,21 +39,37 @@ Route::get('/a', function () {
 Route::get('/list', [StatusController::class, 'ProjectList'])->name('ProjectList');
 Route::get('/create', [StatusController::class, 'CreateProject'])->name('CreateProject');
 Route::post('/newproject', [StatusController::class, 'NewProject'])->name('new.project');
-Route::get('/addnewresource/{project_key}', [StatusController::class, 'AddResourceView']);
+Route::get('/editproject/{project_key}', [StatusController::class, 'editproject'])->name('editproject');
+Route::post('/updateproject', [StatusController::class, 'UpdateProject'])->name('updateproject');
+Route::get('/ProjectStatus/{flag}', [StatusController::class, 'ProjectStatus'])->name('ProjectStatus');
+
+Route::get('/addnewresource/{project_key}', [StatusController::class, 'AddResourceView'])->name('addnewresource');;
 Route::post('/addresource', [StatusController::class, 'AddResource'])->name('add.resource');
-Route::get('/viewresource/{project_key}', [StatusController::class, 'ViewResource']);
+Route::get('/viewresource/{project_key}', [StatusController::class, 'ViewResource'])->name('viewresource');
+Route::get('/editresourcedetails/{project_key}/{resource_name}/{resource_email}/{start_resource_date}/{end_resource_date}/{task_description}/{status}', [StatusController::class, 'EditResourceDetails']);
+Route::post('/updateresourcedetails', [StatusController::class, 'UpdateResource'])->name('update.resource');
+Route::post('/feedback', [StatusController::class, 'feedback'])->name('task.feedback');
+Route::get('/feedbacklist', [StatusController::class, 'feedbacklist'])->name('feedbacklist');
+
 
 //User Routes
 Route::get('/resourcedetails', [ResourceController::class, 'resourcedetails'])->name('resourcedetails');
+Route::get('/tasklist', [ResourceController::class, 'tasklist'])->name('tasklist');
+Route::get('/TaskCompleted', [ResourceController::class, 'TaskCompleted'])->name('TaskCompleted');
+Route::get('/TaskInprogress', [ResourceController::class, 'TaskInprogress'])->name('TaskInprogress');
+Route::get('/TaskOnhold', [ResourceController::class, 'TaskOnhold'])->name('TaskOnhold');
+
 
 
 //Super Admin Routes
-Route::get('/registeruser', [SuperAdminController::class, 'RegisterUser'])->name('register.user');
+Route::get('/registeruser', [SuperAdminController::class, 'RegisterUser'])->name('registeruser');
 Route::post('/addnewuser', [SuperAdminController::class, 'AddNewUser'])->name('add.newuser');
 Route::get('/UserList', [SuperAdminController::class, 'UserList'])->name('UserList');
 
-Route::get('/edituser/{email}', [SuperAdminController::class, 'EditUser']);
 Route::get('/deleteuser/{email}', [SuperAdminController::class, 'DeleteUser']);
+Route::get('/edituserinfo/{email}/{name}/{type}', [SuperAdminController::class, 'EditUserInfo']);
+Route::post('/edituser', [SuperAdminController::class, 'EditUser'])->name('edit.user');
+
 
 
 
@@ -61,17 +77,6 @@ Route::get('/deleteuser/{email}', [SuperAdminController::class, 'DeleteUser']);
 //Middleware
 Auth::routes();
 
-
-
-/*------------------------------------------
-
---------------------------------------------
-
-All Normal Users Routes List
-
---------------------------------------------
-
---------------------------------------------*/
 
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
@@ -82,17 +87,6 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
 });
 
 
-
-/*------------------------------------------
-
---------------------------------------------
-
-All Admin Routes List
-
---------------------------------------------
-
---------------------------------------------*/
-
 Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
 
@@ -102,16 +96,6 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 });
 
 
-
-/*------------------------------------------
-
---------------------------------------------
-
-All Admin Routes List
-
---------------------------------------------
-
---------------------------------------------*/
 
 Route::middleware(['auth', 'user-access:manager'])->group(function () {
 
