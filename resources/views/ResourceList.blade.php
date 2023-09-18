@@ -9,11 +9,7 @@
         {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     @endsection
     <meta charset="utf-8">
-    {{-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> --}}
+
 </head>
 @section('menu')
 
@@ -28,12 +24,12 @@
                     <h2>Resource List</h2>
 
                 </div>
-                <table>
+                <table id="tableID">
                     <thead>
                         <tr>
                             <th>Serial No.</th>
                             <th>Resource Name</th>
-                            <th>Resource Email</th>
+                            {{-- <th>Resource Email</th> --}}
                             <th>Task Description</th>
                             <th>Resource Start Date</th>
                             <th>Resource End Date</th>
@@ -48,7 +44,7 @@
                             <tr>
                                 <td>{{ $i }}</td>
                                 <td>{{ $ResourceList->resource_name }}</td>
-                                <td>{{ $ResourceList->resource_email }}</td>
+                                {{-- <td>{{ $ResourceList->resource_email }}</td> --}}
                                 <td>{{ $ResourceList->task_description }}</td>
                                 <td>{{ $ResourceList->start_resource_date }}</td>
                                 <td>{{ $ResourceList->end_resource_date }}</td>
@@ -66,8 +62,25 @@
                 </table>
             </div>
         </div>
-    @endsection
-
-</body>
+    </body>
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableID').DataTable({
+                paging: true, // Enable pagination
+                lengthMenu: [10, 25, 50, 100], // Choose the number of rows per page
+                dom: 'Bfrtip', // Add export buttons
+                buttons: [
+                    'excel', // Excel export button
+                    {
+                        extend: 'pdf', // PDF export button
+                        orientation: 'landscape', // PDF orientation (landscape or portrait)
+                        text: 'Export to PDF', // Button text
+                        title: 'Feedback Data', // PDF title
+                    },
+                ],
+            });
+        });
+    </script>
+@endsection
 
 </html>

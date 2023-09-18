@@ -23,16 +23,17 @@
         <!-- ======================= Cards ================== -->
         <div class="cardBox">
 
-            <div class="card" style="text-align: center;">
+            <div class="card" onclick="location.href='{{ route('TaskInprogress') }}'"
+            style="text-align: center;cursor:pointer;">
                 <div>
                     <?php
                     $a = 0;
                     $b = 0;
                     $c = 0;
                     foreach ($resourcedetails as $resourcedetails_a) {
-                        if ($resourcedetails_a->status == 'Completed') {
+                        if ($resourcedetails_a->status == 'InProgress') {
                             $a++;
-                        } elseif ($resourcedetails_a->status == 'InProgress') {
+                        } elseif ($resourcedetails_a->status == 'OnHold') {
                             $b++;
                         } else {
                             $c++;
@@ -42,31 +43,34 @@
                     ?>
                     <div class="numbers" style="centre">{{ $a }}</div>
 
-                    <div class="cardName">Completed Task</div>
+                    <div class="cardName">InProgress Task</div>
                 </div>
 
 
             </div>
 
-            <div class="card" style="text-align: center;">
+            <div  class="card" onclick="location.href='{{ route('TaskOnhold') }}'"
+            style="text-align: center;cursor:pointer;">
                 <div>
                     <div class="numbers">{{ $b }}</div>
-                    <div class="cardName">In Progress Task</div>
-                </div>
-
-
-            </div>
-
-            <div class="card" style="text-align: center;">
-                <div>
-                    <div class="numbers">{{ $c }}</div>
                     <div class="cardName">OnHold Task</div>
                 </div>
 
 
             </div>
 
-            <div class="card" style="text-align: center;">
+            <div  class="card" onclick="location.href='{{ route('TaskCompleted') }}'"
+            style="text-align: center;cursor:pointer;">
+                <div>
+                    <div class="numbers">{{ $c }}</div>
+                    <div class="cardName">Completed Task</div>
+                </div>
+
+
+            </div>
+
+            <div  class="card" onclick="location.href='{{ route('tasklist') }}'"
+            style="text-align: center;cursor:pointer;">
                 <div>
                     <div class="numbers">{{ $d }}</div>
                     <div class="cardName">All Tasks</div>

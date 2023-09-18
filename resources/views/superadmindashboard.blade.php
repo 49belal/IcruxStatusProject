@@ -10,10 +10,26 @@
         <title>Dashboard</title>
         <!-- ======= Styles ====== -->
         {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     @endsection
 </head>
 @section('menu')
     <style>
+        .parent {
+
+            /* margin: 1rem; */
+            padding: 1rem 1rem;
+            text-align: center;
+        }
+
+        .child {
+            display: inline-block;
+
+            padding: 1rem 1rem;
+            /* vertical-align: middle; */
+        }
+
         .btn {
             background-color: #2196F3;
             color: white;
@@ -131,93 +147,22 @@
         <!-- ================ Order Details List ================= -->
         <div class="details">
             <div class="recentOrders">
+                <div class="parent">
 
-                <div class="cardHeader">
-                    <h2>List of Projects</h2>
+                    <div class="child">
 
+                        <canvas id="myChart" style="width:200%;max-width:350px"></canvas>
+
+                    </div>
+                    <div class="child">
+
+                        <canvas id="myChart1" style="width:350%;max-width:600px;margin-left:55px"></canvas>
+
+                    </div>
                 </div>
-                <table style="margin-right: 40px; text-align: center;justify-content: center; ">
-                    <thead>
-                        <tr>
-                            <th>Serial No.</th>
-                            <th>Client Name</th>
-                            <th>Project Description</th>
-                            <th>Project Lead</th>
-                            <th>Project Status</th>
-                            <th>Priority</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            {{-- <th>View Resource</th>
-                            <th>Edit Resource</th>
-                            <th>Add Resource</th> --}}
-                            <th>Action</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $i = 1; ?>
-                        @foreach ($ProjectList as $ProjectList)
-                            <tr>
-                                <td>{{ $i }}</td>
-                                <td>{{ $ProjectList->client_name }}</td>
-                                <td>{{ $ProjectList->description }}</td>
-
-                                <td>{{ $ProjectList->project_lead }}</td>
-                                <?php
-                                if ($ProjectList->project_status == 'Completed') {
-                                    $class = 'status delivered1';
-                                } elseif ($ProjectList->project_status == 'InProgress') {
-                                    $class = 'status inProgress2';
-                                } else {
-                                    $class = 'status pending1';
-                                }
-                                ?>
-                                <td><span class="{{ $class }}"
-                                        style="margin-right:50px;">{{ $ProjectList->project_status }}</span></td>
-
-                                <td>{{ $ProjectList->priority }}</td>
-                                <td><?php $start_todate = explode('-', $ProjectList->start_date);
-                                $start__date = $start_todate[2] . '-' . $start_todate[1] . '-' . $start_todate[0]; ?>{{ $start__date }}</td>
-                                <td><?php $end_todate = explode('-', $ProjectList->end_date);
-                                $end__date = $end_todate[2] . '-' . $end_todate[1] . '-' . $end_todate[0]; ?>{{ $end__date }}</td>
-
-                                {{-- <td><a href="viewresource/{{ $ProjectList->project_key }}"><button
-                                            class="status inProgress" style="margin-right:30px;">View</button></a>
-                                <td><a href="editproject/{{ $ProjectList->project_key }}"><button class="status inProgress"
-                                            style="margin-right:30px;">Edit</button></a>
-                                </td>
-                                <td><a href="addnewresource/{{ $ProjectList->project_key }}"><button
-                                            class="status inProgress" style="margin-left:10px;">Add</button></a></td>
-                                </td> --}}
-
-
-
-                                <td class="dropdown" style="position:initial">
-                                    <button class="status inProgress">
-                                        Action <i class="fa fa-caret-down"></i>
-                                    </button>
-                                    <div class="dropdown-content">
-                                        <a href="{{ route('viewresource', $ProjectList->project_key) }}">View</a>
-                                        <a href="{{ route('addnewresource', $ProjectList->project_key) }}">Add</a>
-                                        <a href="{{ route('editproject', $ProjectList->project_key) }}">Update</a>
-                                    </div>
-
-                                </td>
-
-                            </tr>
-                            <?php $i++; ?>
-                        @endforeach
-                    </tbody>
-                </table>
             </div>
         </div>
-
-
-
-
-
-        </div>
-
 
         {{-- <!-- =========== Scripts =========  -->
         <script src="js/main.js"></script>
@@ -229,10 +174,80 @@
     </body>
 
     </html>
+
     <script>
-        /* Initialization of datatable */
-        $(document).ready(function() {
-            $('#tableID').details({});
+        var values = {
+            InProgress: "{{ $a }}",
+            OnHold: "{{ $b }}",
+            Completed: "{{ $c }}",
+
+
+        }
+        var xValues = ["InProgress", "OnHold", "Completed"];
+        var yValues = [values.InProgress, values.OnHold, values.Completed];
+        var barColors = [
+            "#ADD8E6",
+            "#FFEFD5",
+            "#D3D3D3",
+
+        ];
+
+        new Chart("myChart", {
+            type: "pie",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                title: {
+                    display: true,
+
+                }
+            }
+        });
+    </script>
+    <script>
+         var values = {
+            January: {{ $january[0]->january}},
+            February: {{ $february[0]->february }},
+            March: {{ $march[0]->march }},
+            April: {{ $april[0]->april }},
+            May: {{ $may[0]->may }},
+            June: {{ $june[0]->june }},
+            July: {{ $july[0]->july }},
+            August: {{ $august[0]->august }},
+            September: {{ $september[0]->september }},
+            October: {{ $october[0]->october }},
+            November: {{ $november[0]->november }},
+            December: {{ $december[0]->december }}
+
+
+        }
+        var xValues = ["January", "February", "March", "April", "May","June", "July", "August", "September", "October","November", "December"];
+        var yValues = [values.January, values.February, values.March, values.April, values.May,values.June, values.July, values.August, values.September, values.October,values.November, values.December];
+        var barColors = ["#D3D3D3", "#FAFAD2", "#F08080", "#ADD8E6", "#F5F5DC","#FFA07A", "#808080", "#87CEFA", "#66CDAA", "#FA8072","#C0C0C0", "#FFDEAD"];
+
+        new Chart("myChart1", {
+            type: "bar",
+            data: {
+                labels: xValues,
+                datasets: [{
+                    backgroundColor: barColors,
+                    data: yValues
+                }]
+            },
+            options: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: true,
+                    text: "Number of Projects in 2023"
+                }
+            }
         });
     </script>
 @endsection

@@ -1,20 +1,62 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app2')
+@section('head')
+    <title>User List</title>
 
-<head>
-    @extends('layouts.app2')
-    @section('head')
-        <title>Resource List</title>
-        <!-- ======= Styles ====== -->
-        {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
-    @endsection
-    <meta charset="utf-8">
-    {{-- <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script> --}}
-</head>
+
+
+    <style>
+        .btn {
+            background-color: #2196F3;
+            color: white;
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+            outline: none;
+            margin-right: 50px;
+
+        }
+
+        .dropdown {
+            position: initial;
+            /* display: inline-block; */
+            display: block;
+            margin: auto;
+            margin-top: 1px;
+
+
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            margin-left: 0px;
+            background-color: #f1f1f1;
+            min-width: 80px;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 8px 10px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .btn:hover,
+        .dropdown:hover .btn {
+            background-color: #0b7dda;
+        }
+    </style>
+@endsection
 @section('menu')
 
     <body>
@@ -28,7 +70,7 @@
                     <h2>Resource List</h2>
 
                 </div>
-                <table>
+                <table id="tableID">
                     <thead>
                         <tr>
                             <th>User Name</th>
@@ -66,8 +108,24 @@
                 </table>
             </div>
         </div>
-    @endsection
+    </body>
+    <script>
+        $(document).ready(function() {
+            var table = $('#tableID').DataTable({
+                paging: true, // Enable pagination
+                lengthMenu: [10, 25, 50, 100], // Choose the number of rows per page
+                dom: 'Bfrtip', // Add export buttons
+                buttons: [
+                    'excel', // Excel export button
+                    {
+                        extend: 'pdf', // PDF export button
+                        orientation: 'landscape', // PDF orientation (landscape or portrait)
+                        text: 'Export to PDF', // Button text
+                        title: 'Feedback Data', // PDF title
+                    },
+                ],
+            });
+        });
+    </script>
+@endsection
 
-</body>
-
-</html>

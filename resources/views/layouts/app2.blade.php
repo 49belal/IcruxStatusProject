@@ -3,20 +3,33 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- DataTables CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.24/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+    <!-- DataTables Buttons Extension CSS and JS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
     <link rel="stylesheet"href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('boxicons-master/css/boxicons.min.css') }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- ====== ionicons ======= -->
-    <script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+    {{-- <script type="text/javascript" src="{{ asset('js/main.js') }}"></script> --}}
    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ asset('boxicons-master/css/boxicons.min.css') }}">
-     <meta name="csrf-token" content="{{ csrf_token() }}">
-    </head>
     {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
     @yield('head')
-
+</head>
 
 
 <body>
@@ -25,12 +38,9 @@
         <ul>
             <li>
                 <a href="/">
-
                     <img class="icon" src="{{ url('logoicrux.png') }}"
                         style="padding-top: 5px;width: 5%;height: 5%;">
-
                     <span class="title" style="">Icrux Systems</span>
-
                 </a>
             </li>
 
@@ -70,6 +80,14 @@
                         <ion-icon name="pause-outline"></ion-icon>
                     </span>
                     <span class="title">Task On Hold</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('Resourcefeedbacklist') }}">
+                    <span class="icon">
+                        <ion-icon name="chatbubbles-outline"></ion-icon>
+                    </span>
+                    <span class="title">Feedback</span>
                 </a>
             </li>
             <?php }else{ ?>
@@ -150,19 +168,19 @@
                     <button class="status inProgresss" style="margin-right:480px;" onclick="history.go(-1);">Back
                     </button>
                 </div> --}}
-
+{{--
                 <div class="search">
                     <label>
                         <input type="text" placeholder="Search here">
                         <ion-icon name="search-outline"></ion-icon>
                     </label>
-                </div>
+                </div> --}}
 
-                <div>
-                    <span class="icon">
+                <div style="padding-right: 20px">
+                    <span class="icon" style="color: white">
                         <ion-icon name="people-outline"></ion-icon>
                     </span>
-                    <span class="title">
+                    <span class="title" style="color: white">
                         {{ Auth::user()->name }}
 
                     </span>
@@ -178,6 +196,7 @@
     {{-- <script src="js/main.js"></script> --}}
 
 
-
-
 </body>
+<script type="text/javascript" src="{{ asset('js/main.js') }}"></script>
+
+</html>

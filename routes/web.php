@@ -42,6 +42,9 @@ Route::post('/newproject', [StatusController::class, 'NewProject'])->name('new.p
 Route::get('/editproject/{project_key}', [StatusController::class, 'editproject'])->name('editproject');
 Route::post('/updateproject', [StatusController::class, 'UpdateProject'])->name('updateproject');
 Route::get('/ProjectStatus/{flag}', [StatusController::class, 'ProjectStatus'])->name('ProjectStatus');
+Route::get('/TaskStatus/{flag}', [StatusController::class, 'TaskStatus'])->name('TaskStatus');
+
+
 
 Route::get('/addnewresource/{project_key}', [StatusController::class, 'AddResourceView'])->name('addnewresource');;
 Route::post('/addresource', [StatusController::class, 'AddResource'])->name('add.resource');
@@ -52,12 +55,15 @@ Route::post('/feedback', [StatusController::class, 'feedback'])->name('task.feed
 Route::get('/feedbacklist', [StatusController::class, 'feedbacklist'])->name('feedbacklist');
 
 
-//User Routes
+//Resource Routes
 Route::get('/resourcedetails', [ResourceController::class, 'resourcedetails'])->name('resourcedetails');
 Route::get('/tasklist', [ResourceController::class, 'tasklist'])->name('tasklist');
 Route::get('/TaskCompleted', [ResourceController::class, 'TaskCompleted'])->name('TaskCompleted');
 Route::get('/TaskInprogress', [ResourceController::class, 'TaskInprogress'])->name('TaskInprogress');
 Route::get('/TaskOnhold', [ResourceController::class, 'TaskOnhold'])->name('TaskOnhold');
+Route::get('/edittaskdetails/{resource_key}/{client_name}/{project_lead}/{task_description}/{status}', [ResourceController::class, 'EdittaskDetails']);
+Route::post('/edittask', [ResourceController::class, 'EditTask'])->name('edit.task');
+Route::get('/Resourcefeedbacklist', [ResourceController::class, 'Resourcefeedbacklist'])->name('Resourcefeedbacklist');
 
 
 
@@ -69,6 +75,7 @@ Route::get('/UserList', [SuperAdminController::class, 'UserList'])->name('UserLi
 Route::get('/deleteuser/{email}', [SuperAdminController::class, 'DeleteUser']);
 Route::get('/edituserinfo/{email}/{name}/{type}', [SuperAdminController::class, 'EditUserInfo']);
 Route::post('/edituser', [SuperAdminController::class, 'EditUser'])->name('edit.user');
+
 
 
 

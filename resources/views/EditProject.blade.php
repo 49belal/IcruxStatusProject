@@ -35,10 +35,10 @@
                             @csrf
 
                             <div class="row mb-3">
-                                <label for="project_key" class="col-md-4 col-form-label text-md-end">{{ __('Project Key') }}</label>
+                                <label for="project_key" class="col-md-4 col-form-label text-md-end" hidden>{{ __('Project Key') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" value="<?php echo $project_key ?>" name="project_key" >
+                                    <input type="text" class="form-control" value="<?php echo $project_key ?>" name="project_key" hidden >
                                 </div>
                             </div>
 

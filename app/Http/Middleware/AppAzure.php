@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Middleware;
 
 use Illuminate\Http\Request;
@@ -35,6 +34,19 @@ class AppAzure extends Azure
         if (!empty($User)) {
             $type = DB::select("select type from users where email='$email'");
             $role = $type[0]->type;
+            $january = DB::select("select count('project_key') as january from project_details where start_date LIKE '_____01___'");
+            $february = DB::select("select count('project_key') as february from project_details where start_date LIKE '_____02___'");
+            $march = DB::select("select count('project_key') as march from project_details where start_date LIKE '_____03___'");
+            $april = DB::select("select count('project_key') as april from project_details where start_date LIKE '_____04___'");
+            $may = DB::select("select count('project_key') as may from project_details where start_date LIKE '_____05___'");
+            $june = DB::select("select count('project_key')as june from project_details where start_date LIKE '_____06___'");
+            $july = DB::select("select count('project_key') as july from project_details where start_date LIKE '_____07___'");
+            $august = DB::select("select count('project_key') as august from project_details where start_date LIKE '_____08___'");
+            $september = DB::select("select count('project_key') as september from project_details where start_date LIKE '_____09___'");
+            $october = DB::select("select count('project_key') as october from project_details where start_date LIKE '_____10___'");
+            $november = DB::select("select count('project_key') as november from project_details where start_date LIKE '_____11___'");
+            $december = DB::select("select count('project_key') as december from project_details where start_date LIKE '_____12___'");
+
 
             //User Role
             if ($role == 0) {
@@ -62,11 +74,11 @@ class AppAzure extends Azure
             } elseif ($role == 2) {
                 Auth::login($user, true);
                 $ProjectList = DB::select('select * from project_details');
-                return view("superadmindashboard", ['ProjectList' => $ProjectList]);
+                return view("superadmindashboard", ['ProjectList' => $ProjectList,'january' => $january,'february' => $february,'march' => $march,'april' => $april,'may' => $may,'june' => $june,'july' => $july,'august' => $august,'september' => $september,'october' => $october,'november' => $november,'december' => $december]);
             } elseif ($role == 3) {
                 Auth::login($user, true);
                 $ProjectList = DB::select('select * from project_details');
-                return view("superadmindashboard", ['ProjectList' => $ProjectList]);
+                return view("superadmindashboard", ['ProjectList' => $ProjectList,'january' => $january,'february' => $february,'march' => $march,'april' => $april,'may' => $may,'june' => $june,'july' => $july,'august' => $august,'september' => $september,'october' => $october,'november' => $november,'december' => $december]);
                 // return view ("TeamLeadHome");
             }
         } else {
