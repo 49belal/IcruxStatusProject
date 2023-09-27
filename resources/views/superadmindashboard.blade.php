@@ -87,7 +87,7 @@
         <!-- ======================= Cards ================== -->
         <div class="cardBox">
 
-            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'Completed') }}'"
+            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'InProgress') }}'"
                 style="text-align: center;cursor:pointer;">
                 <div>
                     <?php
@@ -123,7 +123,7 @@
 
             </div>
 
-            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'InProgress') }}'"
+            <div class="card" onclick="location.href='{{ route('ProjectStatus', 'Completed') }}'"
                 style="text-align: center;cursor:pointer;">
                 <div>
                     <div class="numbers" style="centre">{{ $c }}</div>
@@ -186,9 +186,9 @@
         var xValues = ["InProgress", "OnHold", "Completed"];
         var yValues = [values.InProgress, values.OnHold, values.Completed];
         var barColors = [
-            "#ADD8E6",
-            "#FFEFD5",
-            "#D3D3D3",
+            "#CBC3E3",
+            "#FFDAB9",
+            "#87CEEB",
 
         ];
 

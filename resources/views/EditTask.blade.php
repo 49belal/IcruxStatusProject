@@ -46,7 +46,7 @@
                                 <label for="client_name" class="col-md-4 col-form-label text-md-end">{{ __('Client Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" value="<?php echo $client_name ?>"  name="client_name" required>
+                                    <input type="text" class="form-control" value="<?php echo $client_name ?>"  name="client_name" disabled>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                                 <label for="project_lead" class="col-md-4 col-form-label text-md-end">{{ __('Project Lead') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" value="<?php echo $project_lead ?>"  name="project_lead" required>
+                                    <input type="text" class="form-control" value="<?php echo $project_lead ?>"  name="project_lead" disabled>
                                 </div>
                             </div>
 

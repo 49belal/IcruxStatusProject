@@ -43,10 +43,19 @@
                             </div>
 
                             <div class="row mb-3">
+                                <label for="resource_key" class="col-md-4 col-form-label text-md-end" hidden>{{ __('Resource Key') }}</label>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" value="<?php echo $resource_key ?>" name="resource_key" hidden >
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
                                 <label for="resource_name" class="col-md-4 col-form-label text-md-end">{{ __('Resource Name') }}</label>
 
                                 <div class="col-md-6">
-                                    <input type="text" class="form-control" value="<?php echo $resource_name ?>"  name="resource_name" required>
+                                    <input type="text" class="form-control" value="<?php echo $resource_name ?>"  name="resource_name" php>
                                 </div>
                             </div>
 

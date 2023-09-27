@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app2')
+@section('head')
+    <title>Task List</title>
 
-<head>
-    @extends('layouts.app2')
-    @section('head')
-        <title>Resource List</title>
-        <!-- ======= Styles ====== -->
-        {{-- <link rel="stylesheet" href="{{ asset('css/style.css') }}"> --}}
-    @endsection
-    <meta charset="utf-8">
-
-</head>
+@endsection
 @section('menu')
 
     <body>
@@ -51,7 +43,7 @@
                                 <td>{{ $ResourceList->status }}</td>
                                 <td>{{ $ResourceList->remarks }}</td>
                                 <td><a
-                                        href="{{ url('/editresourcedetails/' . $ResourceList->project_key . '/' . $ResourceList->resource_name . '/' . $ResourceList->resource_email . '/' . $ResourceList->start_resource_date . '/' . $ResourceList->end_resource_date . '/' . $ResourceList->task_description . '/' . $ResourceList->status) }}"><button
+                                        href="{{ url('/editresourcedetails/' . $ResourceList->project_key . '/' . $ResourceList->resource_key . '/' . $ResourceList->resource_name . '/' . $ResourceList->resource_email . '/' . $ResourceList->start_resource_date . '/' . $ResourceList->end_resource_date . '/' . $ResourceList->task_description . '/' . $ResourceList->status) }}"><button
                                         class="status inProgress style="margin-top: 0.5px;margin-left:30px;">Edit</button></a>
                                 </td>
                                 {{-- <td><a href="/editresourcedetails/{{ $ResourceList->project_key }}/{{ $ResourceList->resource_email }}/{{ $ResourceList->start_resource_date }}"><button class="btn btn-info" style="margin-top: 0.5px;margin-left:30px;" >Edit</button></a></td> --}}
@@ -83,4 +75,4 @@
     </script>
 @endsection
 
-</html>
+

@@ -49,7 +49,7 @@ Route::get('/TaskStatus/{flag}', [StatusController::class, 'TaskStatus'])->name(
 Route::get('/addnewresource/{project_key}', [StatusController::class, 'AddResourceView'])->name('addnewresource');;
 Route::post('/addresource', [StatusController::class, 'AddResource'])->name('add.resource');
 Route::get('/viewresource/{project_key}', [StatusController::class, 'ViewResource'])->name('viewresource');
-Route::get('/editresourcedetails/{project_key}/{resource_name}/{resource_email}/{start_resource_date}/{end_resource_date}/{task_description}/{status}', [StatusController::class, 'EditResourceDetails']);
+Route::get('/editresourcedetails/{project_key}/{resource_key}/{resource_name}/{resource_email}/{start_resource_date}/{end_resource_date}/{task_description}/{status}', [StatusController::class, 'EditResourceDetails']);
 Route::post('/updateresourcedetails', [StatusController::class, 'UpdateResource'])->name('update.resource');
 Route::post('/feedback', [StatusController::class, 'feedback'])->name('task.feedback');
 Route::get('/feedbacklist', [StatusController::class, 'feedbacklist'])->name('feedbacklist');

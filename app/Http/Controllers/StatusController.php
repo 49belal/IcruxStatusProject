@@ -15,7 +15,7 @@ class StatusController extends Controller
 {
     public function ProjectList()
     {
-        $ProjectList = DB::select('select * from project_details');
+        $ProjectList = DB::select('select * from project_details order by project_key DESC');
         return view('ProjectList', ['ProjectList' => $ProjectList]);
     }
 
@@ -39,7 +39,7 @@ class StatusController extends Controller
         $data = array('client_name' => $client_name, "project_lead" => $project_lead, "project_status" => $project_status, "priority" => $priority, 'start_date' => $start_date, 'end_date' => $end_date, 'description' => $description);
         DB::table('project_details')->insert($data);
 
-        $ProjectList = DB::select('select * from project_details');
+        $ProjectList = DB::select('select * from project_details order by project_key DESC');
         // dd($ProjectList);
         return view('ProjectList', ['ProjectList' => $ProjectList]);
 
@@ -102,8 +102,8 @@ class StatusController extends Controller
 
         if ($mail->send()) {
             // dd($mail);
-            $ProjectList = DB::select('select * from project_details');
-            return view('ProjectList', ['ProjectList' => $ProjectList]);
+            $ResourceList = DB::select("select * from resource_details where project_key=$project_key");
+            return view('ResourceList', ['ResourceList' => $ResourceList]);
         }
     }
 
@@ -117,6 +117,8 @@ class StatusController extends Controller
     public function EditResourceDetails(Request $request)
     {
         $project_key = $request['project_key'];
+        $resource_key = $request['resource_key'];
+        // dd($resource_key);
         $resource_email = $request['resource_email'];
         $resource_name = $request['resource_name'];
         $task_description = $request['task_description'];
@@ -124,11 +126,13 @@ class StatusController extends Controller
         $end_resource_date = $request['end_resource_date'];
         $status = $request['status'];
 
-        return view('EditResource', ['project_key' => $project_key, 'resource_email' => $resource_email, 'task_description' => $task_description, 'resource_name' => $resource_name, 'start_resource_date' => $start_resource_date, 'end_resource_date' => $end_resource_date, 'status' => $status]);
+        return view('EditResource', ['project_key' => $project_key,'resource_key' => $resource_key, 'resource_email' => $resource_email, 'task_description' => $task_description, 'resource_name' => $resource_name, 'start_resource_date' => $start_resource_date, 'end_resource_date' => $end_resource_date, 'status' => $status]);
     }
     public function UpdateResource(Request $request)
     {
         $project_key = $request->input('project_key');
+        $resource_key = $request->input('resource_key');
+        // dd($resource_key);
         $resource_name = $request->input('resource_name');
         $resource_email = $request->input('resource_email');
         $task_description = $request->input('task_description');
@@ -185,7 +189,7 @@ class StatusController extends Controller
         if (!$mail->send()) {
             return back()->with("failed", "Email not sent.")->withErrors($mail->ErrorInfo);
         } else {
-            DB::update("UPDATE resource_details SET status = '$status', start_resource_date= '$start_resource_date',end_resource_date= '$end_resource_date',remarks= '$remarks' WHERE project_key = $project_key and resource_email='$resource_email';");
+            DB::update("UPDATE resource_details SET status = '$status', start_resource_date= '$start_resource_date',end_resource_date= '$end_resource_date',remarks= '$remarks' WHERE resource_key = $resource_key and resource_email='$resource_email';");
 
             if ($status == 'Completed') {
                 $resourcekey = DB::select("select resource_key from resource_details where project_key = '$project_key' && resource_email ='$resource_email' && task_description ='$task_description'");
@@ -193,8 +197,8 @@ class StatusController extends Controller
                 return view('feedback', ['resourcekey' => $resourcekey]);
             }
 
-            $ProjectList = DB::select('select * from project_details');
-            return view('ProjectList', ['ProjectList' => $ProjectList]);
+            $ResourceList = DB::select("select * from resource_details where project_key=$project_key");
+            return view('ResourceList', ['ResourceList' => $ResourceList]);
         }
     }
 
@@ -210,8 +214,8 @@ class StatusController extends Controller
         $data = array('overall_experience' => $overall_experince, 'overall_experience' => $completeness, "logic" => $logic, "time" => $time, "resource_key" => $resourcekey);
         // dd($data);
         DB::table('feedback')->insert($data);
-        $ProjectList = DB::select("select * from project_details");
-        return view('ProjectList', ['ProjectList' => $ProjectList]);
+        $ResourceList = DB::select("select * from resource_details where project_key=$project_key");
+        return view('ResourceList', ['ResourceList' => $ResourceList]);
     }
 
     public function feedbacklist()
@@ -227,7 +231,7 @@ class StatusController extends Controller
     {
         $project_key = $request['project_key'];
 
-        $ProjectList = DB::select("select * from project_details where project_key=$project_key");
+        $ProjectList = DB::select("select * from project_details where project_key=$project_key order by project_key DESC");
         $project_key = $ProjectList[0]->project_key;
         $client_name = $ProjectList[0]->client_name;
         $project_status = $ProjectList[0]->project_status;
@@ -257,7 +261,7 @@ class StatusController extends Controller
         // $data = array('client_name' => $client_name, "project_lead" => $project_lead, "project_status" => $project_status, "priority" => $priority, 'start_date' => $start_date, 'end_date' => $end_date, 'description' => $description);
         // DB::table('project_details')->insert($data);
 
-        $ProjectList = DB::select('select * from project_details');
+        $ProjectList = DB::select('select * from project_details order by project_key DESC');
         // dd($ProjectList);
         return view('ProjectList', ['ProjectList' => $ProjectList]);
 
